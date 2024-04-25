@@ -1,0 +1,29 @@
+#include <iostream>
+
+int* reverseArray(int A[], int n) {
+    int left = 0, right = n - 1;
+
+    // Reverse the array using two pointers
+    while (left < right) {
+        std::swap(A[left], A[right]);
+        ++left;
+        --right;
+    }
+
+    return A;
+}
+
+int main() {
+    int A[] = {1, 2, 3, 4};
+    int n = sizeof(A) / sizeof(A[0]);
+
+    int* reversedArray = reverseArray(A, n);
+
+    // Print the reversed array
+    std::cout << "Reversed Array: ";
+    for (int i = 0; i < n; ++i) {
+        std::cout << reversedArray[i] << " ";
+    }
+
+    return 0;
+}

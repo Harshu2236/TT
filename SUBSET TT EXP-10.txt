@@ -1,0 +1,40 @@
+#include <iostream>
+#include <vector>
+
+bool isSubsetSum(const std::vector<int>& set, int sum) {
+    int n = set.size();
+    std::vector<std::vector<bool>> dp(n + 1, std::vector<bool>(sum + 1, false));
+
+    // If sum is 0, then answer is true
+    for (int i = 0; i <= n; ++i)
+        dp[i][0] = true;
+
+    // If sum is not 0 and set is empty, then answer is false
+    for (int i = 1; i <= sum; ++i)
+        dp[0][i] = false;
+
+    // Fill the dp table
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= sum; ++j) {
+            // If current element is greater than sum, then it can't be included in the subset
+            if (set[i - 1] > j)
+                dp[i][j] = dp[i - 1][j];
+            else
+                dp[i][j] = dp[i - 1][j] || dp[i - 1][j - set[i - 1]];
+        }
+    }
+
+    return dp[n][sum];
+}
+
+int main() {
+    std::vector<int> set = {3, 34, 4, 12, 5, 2};
+    int sum1 = 9;
+    int sum2 = 30;
+
+    std::cout << std::boolalpha;  // Print true/false instead of 1/0
+    std::cout << "Output for sum = 9: " << isSubsetSum(set, sum1) << std::endl;  // Should print true
+    std::cout << "Output for sum = 30: " << isSubsetSum(set, sum2) << std::endl;  // Should print false
+
+    return 0;
+}

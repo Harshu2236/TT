@@ -1,0 +1,33 @@
+#include <iostream>
+#include <vector>
+
+std::vector<int> rotateLeft(int d, std::vector<int> arr) {
+    int n = arr.size();
+    std::vector<int> rotatedArr(n);
+
+    // Calculate the effective number of rotations
+    int rotations = d % n;
+
+    // Perform left rotations
+    for (int i = 0; i < n; ++i) {
+        int newIndex = (i - rotations + n) % n;
+        rotatedArr[newIndex] = arr[i];
+    }
+
+    return rotatedArr;
+}
+
+int main() {
+    int d = 2;
+    std::vector<int> arr = {1, 2, 3, 4, 5};
+
+    std::vector<int> rotatedArr = rotateLeft(d, arr);
+
+    // Print the rotated array
+    std::cout << "Rotated Array: ";
+    for (int num : rotatedArr) {
+        std::cout << num << " ";
+    }
+
+    return 0;
+}
